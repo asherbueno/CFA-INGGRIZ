@@ -5,7 +5,7 @@ import axios from 'axios';
 class IngredientForm extends Component {
 	handleInputChange(e) {
 		// not used, just for reference
-		// console.log(e.target.value)
+		console.log(e.target.value)
 	};
 
 	focus() {
@@ -14,8 +14,13 @@ class IngredientForm extends Component {
   };
 
   newIngredient() {
-  	const URL = 'http://yamagucci.herokuapp.com/api/ingredients?key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNob3VoZWkueWFtYXVjaGlAbGl2ZS5jb20iLCJpYXQiOjE0OTQ5OTMxMTV9.G0ctQghRRAqaZiGSZyT5Oi-YXUUfb3UsYQpsmMaVA0k';
-  	axios.post(URL + '&name=' + this.nameInput.value)
+
+console.log("create: " + this.nameInput.value)
+
+  	const URL = 'https://aqueous-garden-51041.herokuapp.com/api/v1/ingredients/new';
+  	axios.post(URL, {
+			name: this.nameInput.value
+		})
   		.then((response) => {
   			console.log(response);
   			// reset value of input field
@@ -30,9 +35,9 @@ class IngredientForm extends Component {
 	render() {
 		return (
 			<div>
-				<input 
-					type="text" 
-					ref={(input) => { this.nameInput = input; }} 
+				<input
+					type="text"
+					ref={(input) => { this.nameInput = input; }}
 					onChange={(e) => this.handleInputChange(e)} />
 				<button onClick={() => this.newIngredient()}>Create!!</button>
 			</div>
